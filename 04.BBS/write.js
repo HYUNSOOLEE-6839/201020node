@@ -23,7 +23,7 @@ module.exports = {
 </a>
 <ul class="nav mr- auto">
   <li class="nav-item">
-        <a class="nav-link" href='/'><i class="fas fa-home">홈</i></a>
+        <a class="nav-link" href='/bbs'><i class="fas fa-home">홈</i></a>
   </li>
   <li class="nav-item">
   <a class="nav-link" href='/bbs/bid/write'><i class="fas fa-home">글 쓰기</i></a>

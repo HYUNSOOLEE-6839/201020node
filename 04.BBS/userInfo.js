@@ -1,20 +1,22 @@
 module.exports = {
-    mainForm : function(rows){
+    InfoForm : function(rows){
         let tableRow = '';
-        for (let row of rows){
-            tableRow += `<tr>
-                            <td style="padding-right: 20px">${row.bid}</td>
-                            <td style="padding-right: 120px"><a href="/bbs/bid/${row.bid}">${row.title}</a></td>
-                            <td style="padding-right: 30px">${row.uid}</td>
-                            <td style="padding-right: 30px">${row.modTime}</td>
-                            <td style="padding-right: 30px">${row.viewCount}</td>
-                            <td style="padding-right: 90px">
-                                <a href = "/update/${row.sid}">수정 </a>
-                                <a href = "/delete/${row.sid}">삭제</a>
-                            </td>
-                        </tr>`;
+        for(let row of rows){
+            tableRow += 
+            `<tr>
+            <td>ID : ${row.uid}  </td>
+            <td>이름 : ${row.uname}</td>
+            <td>전화번호 : ${row.tel}</td>
+            <td>이메일 : ${row.email}</td>
+            <td>등록일자 : ${row.regDate}</td>
+            <td>
+            <a href = "/update/${row.sid}">수정 </a>
+            <a href = "/delete/${row.sid}">삭제</a>
+            </td>
+            </tr>
+            `
         }
-        return `
+        return`
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,7 +28,7 @@ module.exports = {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://fontawesome.com/icons/sign-out-alt?style=solid"></script>
-    <title>게시판</title>
+    <title>게시물</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
@@ -39,7 +41,7 @@ module.exports = {
         <a class="nav-link" href='/bbs'><i class="fas fa-home">홈</i></a>
   </li>
   <li class="nav-item">
-  <a class="nav-link" href='/bbs/bid/write'><i class="fas fa-home">글 쓰기</i></a>
+  <a class="nav-link" href='/'><i class="fas fa-home">글 쓰기</i></a>
   </li>
   <li class="nav-item">
   <a class="nav-link" href='/user/getInfo'><i class="fas fa-home">사용자 조회</i></a>
@@ -56,29 +58,17 @@ module.exports = {
 </nav>
 
     <div class="container" style="margin-top:90px;">
-    </div>
-        <div class="container col-10">
-            <div class="container">
-                <form action = "/insert" method ="post">
-                    <table class="table table-hover">
-                        <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>닉네임</th>
-                            <th>날짜</th>
-                            <th>조회수</th>
-                            <th>설정</th>
-                        </tr>
-        ${tableRow}
-    </table>
-    </form>
+    <form action="/Info" method="post">
+    <table class="table table-hover">
+            <th>ID</th>
+            <th>이름</th>
+            <th>전화번호</th>
+            <th>이메일</th>
+            <th>등록일자</th>
+            <th>액션</th>
+            ${tableRow}
+</table>
         </div>
-        <ul class="pagination justify-content-center">
-    <li class="page-item"><a class="page-link" href="#"><<</a></li>
-    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="bbs/list2">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">>></a></li>
-        </ul>
             <nav class="navbar navbar-expand lg navbar-light bg-light justify-content-center fixed-bottom">
                 <p class="text-secondary">Copyright<i class="far fa-copyright"></i> 2020 Hoseo Institute of Big Data</p>
             </nav>

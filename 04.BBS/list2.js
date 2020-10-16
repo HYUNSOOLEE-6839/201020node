@@ -4,7 +4,7 @@ module.exports = {
         for (let row of rows){
             tableRow += `<tr>
                             <td style="padding-right: 20px">${row.bid}</td>
-                            <td style="padding-right: 120px"><a href="/bbs/bid/${row.bid}">${row.title}</a></td>
+                            <td style="padding-right: 120px"><a href ="/bbs/bid/${row.bid}">${row.title}</a></td>
                             <td style="padding-right: 30px">${row.uid}</td>
                             <td style="padding-right: 30px">${row.modTime}</td>
                             <td style="padding-right: 30px">${row.viewCount}</td>
@@ -42,9 +42,6 @@ module.exports = {
   <a class="nav-link" href='/bbs/bid/write'><i class="fas fa-home">글 쓰기</i></a>
   </li>
   <li class="nav-item">
-  <a class="nav-link" href='/user/getInfo'><i class="fas fa-home">사용자 조회</i></a>
-  </li>
-  <li class="nav-item">
         <a class="nav-link" href='/'><i class="fas fa-sign-out-alt"></i>로그아웃</i></a>
   </li>
 </ul>
@@ -75,8 +72,8 @@ module.exports = {
         </div>
         <ul class="pagination justify-content-center">
     <li class="page-item"><a class="page-link" href="#"><<</a></li>
-    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="bbs/list2">2</a></li>
+    <li class="page-item"><a class="page-link" href="/bbs">1</a></li>
+    <li class="page-item active"><a class="page-link" href="#">2</a></li>
     <li class="page-item"><a class="page-link" href="#">>></a></li>
         </ul>
             <nav class="navbar navbar-expand lg navbar-light bg-light justify-content-center fixed-bottom">

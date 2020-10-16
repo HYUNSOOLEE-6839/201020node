@@ -10,5 +10,4 @@ bRouter.get('/bbs',(req, res) => {
         });
 
 
-        
 module.exports = bRouter

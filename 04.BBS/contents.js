@@ -1,20 +1,6 @@
 module.exports = {
-    mainForm : function(rows){
-        let tableRow = '';
-        for (let row of rows){
-            tableRow += `<tr>
-                            <td style="padding-right: 20px">${row.bid}</td>
-                            <td style="padding-right: 120px">${row.title}</td>
-                            <td style="padding-right: 30px">${row.uid}</td>
-                            <td style="padding-right: 30px">${row.modTime}</td>
-                            <td style="padding-right: 30px">${row.viewCount}</td>
-                            <td style="padding-right: 90px">
-                                <a href = "/update/${row.sid}">수정 </a>
-                                <a href = "/delete/${row.sid}">삭제</a>
-                            </td>
-                        </tr>`;
-        }
-        return `
+    viewForm : function(rows){
+        return`
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,7 +12,7 @@ module.exports = {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://fontawesome.com/icons/sign-out-alt?style=solid"></script>
-    <title>게시판</title>
+    <title>게시물</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
@@ -36,7 +22,7 @@ module.exports = {
 </a>
 <ul class="nav mr- auto">
   <li class="nav-item">
-        <a class="nav-link" href='/'><i class="fas fa-home">홈</i></a>
+        <a class="nav-link" href='/bbs'><i class="fas fa-home">홈</i></a>
   </li>
   <li class="nav-item">
   <a class="nav-link" href='/'><i class="fas fa-home">글 쓰기</i></a>
@@ -53,13 +39,19 @@ module.exports = {
 </nav>
 
     <div class="container" style="margin-top:90px;">
-    </div>
-        <div class="container col-10">
-            
-        <h3 style ="text-align: left;">테스트2</h3><h3 style = "text-align: right;">gustn6839</h3>
-    <br>
-    <h6>글번호:1002 | 2020-10-15</h6><h6 style ="text-align : right;">조회 0 댓글 0</h6>
-    
+    <form action="/view" method="post">
+    <table class="table table-hover">
+            <th>번호 : ${rows.bid}  </th>
+            <th>제목 : ${rows.title}</th>
+            <tr>
+            <th>작성자 : ${rows.uid}</th>
+            <th>작성시간 : ${rows.modTime}</th>
+            </tr>
+            <th>조회수 : ${rows.viewCount}</th>
+            <tr>
+            <td>내용 : ${rows.content}</td>
+            </tr>
+</table>
         </div>
             <nav class="navbar navbar-expand lg navbar-light bg-light justify-content-center fixed-bottom">
                 <p class="text-secondary">Copyright<i class="far fa-copyright"></i> 2020 Hoseo Institute of Big Data</p>

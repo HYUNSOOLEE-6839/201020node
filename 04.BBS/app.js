@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
     res.redirect('/login');
 })
 
-app.get('/bbs', (req,res) => {
+app.get('/bbs/', (req,res) => {
     dm.getAllList(rows => {
         const view = require('./list')
         let html = view.mainForm(rows);
@@ -40,13 +40,14 @@ app.get('/bbs', (req,res) => {
     });
 });
 
-app.get('/bbs/bid/1002', (req,res) => {
-    dm.getAllList(rows => {
-        const view = require('./contents')
+app.get('/bbs/list2', (req,res) => {
+    dm.getnextList(rows => {
+        const view = require('./list2')
         let html = view.mainForm(rows);
         res.end(html);
     });
 });
+
 
 app.get('/login', (req, res) => {
     fs.readFile('./view/0.index.html', 'utf8', (error, html) => {
@@ -78,6 +79,17 @@ app.post('/login', (req, res) => {
     });
 });
 
+app.get('/user/getInfo', (req,res) => {
+    let uid = parseInt(req.params.uid);
+    console.log(uid);
+    dm.getInfo(uid, rows => {
+        const view = require('./userInfo')
+        let html = view.InfoForm(rows);
+        console.log(rows);
+        res.end(html);
+    });
+});
+
 app.get('/bbs/bid/write', (req,res) => {
     dm.getWrite(rows => {
         const view = require('./write')
@@ -96,12 +108,24 @@ app.post('/bbs/bid/write', (req,res) => {
     })
 });
 
+app.get('/bbs/bid/:bid', (req,res) => {
+    let bid = parseInt(req.params.bid);
+    console.log(bid);
+    dm.getContents(bid, rows => {
+        const view = require('./contents')
+        let html = view.viewForm(rows);
+        console.log(rows);
+        res.end(html);
+    });
+});
+
+
 
 /* app.get('/bbs', (req, res) => {
     fs.readFile('./view/1.역사.html', 'utf8', (error, html) => {
         res.send(html);
     });
-}) */
+})*/
 
 
 
