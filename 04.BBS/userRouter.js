@@ -32,5 +32,47 @@ dm.getAllLists('*', (req, res) => {
     
 });
 
+uRouter.get('/getInfo', (req,res) => {
+    let uid = parseInt(req.params.uid);
+    dm.getInfo(uid, rows => {
+        const view = require('./userInfo')
+        let html = view.InfoForm(rows);
+        res.end(html);
+    });
+});
+
+uRouter.get('/delete/:uid', (req, res) => {
+    let uid = req.params.uid;
+    console.log(uid);
+    dm.deleteUser(uid, rows => {
+        console.log(uid);
+        res.redirect('/user/getInfo');
+    });
+});
+
+uRouter.get('/update/:uid', (req, res) => {
+    let uid = req.params.uid;
+    console.log(uid);
+    dm.updateUser(uid, rows => {
+        const view = require('./view/update')
+        let html = view.updateForm(rows);
+        console.log(uid);
+        res.send(html);
+    });
+});
+
+uRouter.post('/update', (req, res) => {
+    let uid = req.body.uid;
+    let uname = req.body.uname;
+    let tel = req.body.utel;
+    let email = req.body.email;
+    let params = [uid, uname, tel, email];
+    dm.updateUser(params, uid => {
+        res.redirect('/user/getInfo');
+    });
+});
+
+
+
 module.exports = uRouter;
 

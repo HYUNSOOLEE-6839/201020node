@@ -70,6 +70,17 @@ module.exports = {
             conn.end();
         },
 
+        incrementCount:    function(bid, callback) {
+            let conn = this.getConnection();
+            let sql = `update bbs set viewCount = viewCount+1 WHERE bid=?;`;
+            conn.query(sql, bid, (error, rows, fields) => {
+                if (error)
+                    console.log(error);
+                callback();
+            });
+            conn.end();
+        },
+
         registerUser : function(params, callback){
             let sql = `insert into users(uid, pwd, uname, tel, email) values(?, ?, ?, ?, ?);`;
             let conn = this.getConnection();
@@ -92,27 +103,62 @@ module.exports = {
                 conn.end();
             },
 
-            getWrite:    function(params, callback) {
-                let conn = this.getConnection();
-                let sql = `insert into bbs(title, uid, content) VALUES(?, ?, ?);`;
-                conn.query(sql, params, (error, rows, fields) => {
-                    if (error)
-                        console.log(error);
-                    callback(rows);
+        getWrite:    function(params, callback) {
+            let conn = this.getConnection();
+            let sql = `insert into bbs(title, uid, content) VALUES(?, ?, ?);`;
+            conn.query(sql, params, (error, rows, fields) => {
+                if (error)
+                    console.log(error);
+                callback(rows);
                 });
                 conn.end();
             },
 
-            getInfo: function(uid, callback){
-                let conn = this.getConnection();
-            let sql = `SELECT uid, uname, tel, email, date_format(regDate, '%Y-%m-%d %T') AS regDate FROM users;`;
-            conn.query(sql, uid, (error, rows, fields) =>{
-                if(error)
-                    console.log(error);
-                callback(rows);
+        getInfo: function(uid, callback){
+            let conn = this.getConnection();
+        let sql = `SELECT uid, uname, tel, email, date_format(regDate, '%Y-%m-%d %T') AS regDate FROM users;`;
+        conn.query(sql, uid, (error, rows, fields) =>{
+            if(error)
+                console.log(error);
+            callback(rows);
             });
             conn.end();
+        },
+
+        deleteUser: function(uid, callback){
+            let conn = this.getConnection();
+            let sql = `delete from users where uid= ?`;
+            conn.query(sql, uid, (error, rows, fields) =>{
+                if(error)
+                console.log(error);
+                callback(rows);
+                });
+                conn.end();   
+            },
+
+        getDelete: function(bid, callback){
+            let conn = this.getConnection();
+            let sql = `delete from bbs where bid= ?`;
+            conn.query(sql, bid, (error, rows, fields) =>{
+                if(error)
+                console.log(error);
+                callback(rows);
+                });
+                conn.end();   
+            },
+
+        updateUser : function(uid, params, callback){
+            let sql = `update users set uid=?, uname=?, tel=?, email=? where uid =?`;
+            let conn = this.getConnection();
+            conn.query(sql, params, function(error, rows, fields){
+                if(error)
+                console.log(error);
+                callback();
+            });
+            conn.end();   
         }
+
+            
         /* getContents:    function(bid, callback) {
             let conn = this.getConnection();
             let sql = `SELECT bid, title, uid, date_format(modTime, '%Y-%m-%d %T') AS modTime, content, viewCount FROM bbs WHERE bid = ?`;

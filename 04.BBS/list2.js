@@ -1,3 +1,5 @@
+const template = require('./view/maintemplate')
+
 module.exports = {
     mainForm : function(rows){
         let tableRow = '';
@@ -10,36 +12,38 @@ module.exports = {
                             <td style="padding-right: 30px">${row.viewCount}</td>
                             <td style="padding-right: 90px">
                                 <a href = "/update/${row.sid}">수정 </a>
-                                <a href = "/delete/${row.sid}">삭제</a>
+                                <a href = "/bbs/delete/${row.bid}">삭제</a>
                             </td>
                         </tr>`;
         }
         return `
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://fontawesome.com/icons/sign-out-alt?style=solid"></script>
-    <title>게시판</title>
-</head>
-<body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-<a class="navbar-brand" href="#" >
-    <img src="img/호서.jpg" alt="호서직업능력개발원"
-    style="height : 40px; margin-left : 50px; margin-right : 100px;">
-</a>
-<ul class="nav mr- auto">
-  <li class="nav-item">
+        <html lang="ko">
+        <head>
+            <title>My BBS</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+            <link rel="stylesheet" href="/fontawesome-free-5.15.1-web/css/all.min.css">
+            <script src="/jquery/jquery.min.js"></script>
+            <script src="/popper/popper.min.js"></script>
+            <script src="/bootstrap/js/bootstrap.min.js"></script>
+        </head>
+        <body>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+        <a class="navbar-brand" href="#" >
+            <img src="/img/호서.jpg" alt="호서직업능력개발원"
+                    style="height : 40px; margin-left : 50px; margin-right : 100px;">
+        </a>
+        <ul class="nav mr- auto">
+            <li class="nav-item">
         <a class="nav-link" href='/bbs'><i class="fas fa-home">홈</i></a>
   </li>
   <li class="nav-item">
   <a class="nav-link" href='/bbs/bid/write'><i class="fas fa-home">글 쓰기</i></a>
+  </li>
+  <li class="nav-item">
+  <a class="nav-link" href='/user/getInfo'><i class="fas fa-home">사용자 조회</i></a>
   </li>
   <li class="nav-item">
         <a class="nav-link" href='/'><i class="fas fa-sign-out-alt"></i>로그아웃</i></a>
@@ -51,6 +55,7 @@ module.exports = {
       <i class="fas fa-sun"></i>
   </div>
 </nav>
+
 
     <div class="container" style="margin-top:90px;">
     </div>
@@ -76,11 +81,9 @@ module.exports = {
     <li class="page-item active"><a class="page-link" href="#">2</a></li>
     <li class="page-item"><a class="page-link" href="#">>></a></li>
         </ul>
-            <nav class="navbar navbar-expand lg navbar-light bg-light justify-content-center fixed-bottom">
-                <p class="text-secondary">Copyright<i class="far fa-copyright"></i> 2020 Hoseo Institute of Big Data</p>
-            </nav>
-</body>
-</html>
+        </body>
+        </html>
+        ${template.footer()};
         `;
     }
 }

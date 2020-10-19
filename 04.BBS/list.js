@@ -1,3 +1,5 @@
+const template = require('./view/maintemplate')
+
 module.exports = {
     mainForm : function(rows){
         let tableRow = '';
@@ -10,7 +12,7 @@ module.exports = {
                             <td style="padding-right: 30px">${row.viewCount}</td>
                             <td style="padding-right: 90px">
                                 <a href = "/update/${row.sid}">수정 </a>
-                                <a href = "/delete/${row.sid}">삭제</a>
+                                <a href = "/delete/${row.bid}">삭제</a>
                             </td>
                         </tr>`;
         }
@@ -79,11 +81,9 @@ module.exports = {
     <li class="page-item"><a class="page-link" href="bbs/list2">2</a></li>
     <li class="page-item"><a class="page-link" href="#">>></a></li>
         </ul>
-            <nav class="navbar navbar-expand lg navbar-light bg-light justify-content-center fixed-bottom">
-                <p class="text-secondary">Copyright<i class="far fa-copyright"></i> 2020 Hoseo Institute of Big Data</p>
-            </nav>
-</body>
+        </body>
 </html>
+${template.footer()};
         `;
     }
 }

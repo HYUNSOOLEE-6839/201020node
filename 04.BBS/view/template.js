@@ -35,9 +35,9 @@ module.exports = {
     footer :    function(){
         return `
         <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center fixed-bottom">
-        <span class="navbar-text">
-            Copyright &copy; 2020 Hoseo Institute of Big Data
-        </span>
+    <span class="navbar-text">
+        Copyright &copy; 2020 Hoseo Institute of Big Data
+    </span>
     </nav>
 </body>
 </html> 

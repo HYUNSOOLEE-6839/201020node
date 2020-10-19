@@ -4,11 +4,12 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const Filestore = require('session-file-store')(session);
 const uRouter = require('./userRouter');
+const bRouter = require('./bbsRouter')
 const fs = require('fs')
 const alert = require('./view/alertMsg')
 const dm = require('./db/db.init')
 const ut = require('./util')
-const bRouter = require('./bbsRouter')
+
 
 
 const app = express();
@@ -31,22 +32,6 @@ app.get('/', (req, res) => {
     
     res.redirect('/login');
 })
-
-app.get('/bbs/', (req,res) => {
-    dm.getAllList(rows => {
-        const view = require('./list')
-        let html = view.mainForm(rows);
-        res.end(html);
-    });
-});
-
-app.get('/bbs/list2', (req,res) => {
-    dm.getnextList(rows => {
-        const view = require('./list2')
-        let html = view.mainForm(rows);
-        res.end(html);
-    });
-});
 
 
 app.get('/login', (req, res) => {
@@ -78,56 +63,6 @@ app.post('/login', (req, res) => {
         }
     });
 });
-
-app.get('/user/getInfo', (req,res) => {
-    let uid = parseInt(req.params.uid);
-    console.log(uid);
-    dm.getInfo(uid, rows => {
-        const view = require('./userInfo')
-        let html = view.InfoForm(rows);
-        console.log(rows);
-        res.end(html);
-    });
-});
-
-app.get('/bbs/bid/write', (req,res) => {
-    dm.getWrite(rows => {
-        const view = require('./write')
-        let html = view.mainForm(rows);
-        res.end(html);
-    });
-});
-
-app.post('/bbs/bid/write', (req,res) => {
-    let title = req.body.title;
-    let content = req.body.content;
-    let uid = req.body.uid
-    let params = [title, uid, content];
-    dm.getWrite(params, () => {
-        res.redirect('/bbs');
-    })
-});
-
-app.get('/bbs/bid/:bid', (req,res) => {
-    let bid = parseInt(req.params.bid);
-    console.log(bid);
-    dm.getContents(bid, rows => {
-        const view = require('./contents')
-        let html = view.viewForm(rows);
-        console.log(rows);
-        res.end(html);
-    });
-});
-
-
-
-/* app.get('/bbs', (req, res) => {
-    fs.readFile('./view/1.역사.html', 'utf8', (error, html) => {
-        res.send(html);
-    });
-})*/
-
-
 
 
 app.listen(3000, function(){

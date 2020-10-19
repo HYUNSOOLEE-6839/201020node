@@ -1,8 +1,8 @@
 const template = require('./maintemplate')
 
-module.exports.bbs = function () {
+module.exports.mainForm = function () {
     return `
-        ${template.header()};
+        ${template.mainForm()};
 <div class="container" style="margin-top:90px;">
     <div class="row">
     <div class ="col-12">
