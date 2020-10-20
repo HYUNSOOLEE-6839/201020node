@@ -54,7 +54,7 @@ app.post('/login', (req, res) => {
                 req.session.uname = result.uname;
                 console.log('Login 성공');
                 req.session.save(function(){
-                    res.redirect('/bbs');
+                    res.redirect('/bbs/list/1');
                 });
             } else {
                 let html = alert.alertMsg('Login 실패 : 패스워드가 다릅니다.','/login' )

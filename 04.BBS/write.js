@@ -1,5 +1,6 @@
-module.exports = {
-    mainForm : function(rows){
+const template = require('./view/maintemplate')
+
+module.exports.mainForm = function (navBar) {
         
         return `
         <!DOCTYPE html>
@@ -15,53 +16,26 @@ module.exports = {
             <script src="/bootstrap/js/bootstrap.min.js"></script>
         </head>
         <body>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-        <a class="navbar-brand" href="#" >
-            <img src="/img/호서.jpg" alt="호서직업능력개발원"
-                    style="height : 40px; margin-left : 50px; margin-right : 100px;">
-        </a>
-        <ul class="nav mr- auto">
-            <li class="nav-item">
-        <a class="nav-link" href='/bbs'><i class="fas fa-home">홈</i></a>
-  </li>
-  <li class="nav-item">
-  <a class="nav-link" href='/bbs/bid/write'><i class="fas fa-home">글 쓰기</i></a>
-  </li>
-  <li class="nav-item">
-  <a class="nav-link" href='/user/getInfo'><i class="fas fa-home">사용자 조회</i></a>
-  </li>
-  <li class="nav-item">
-        <a class="nav-link" href='/'><i class="fas fa-sign-out-alt"></i>로그아웃</i></a>
-  </li>
-</ul>
-  <div class="navbar-text fixed-right" id="weather">
-      홍길동님 반갑습니다.
-      날씨 : 맑음, 온도 : 20&deg;C
-      <i class="fas fa-sun"></i>
-  </div>
-</nav>
+        ${template.navBar}
 
     <div class="container" style="margin-top:90px;">
     </div>
         <div class="container col-10">
             
         <form action="/bbs/bid/write" method="post">
-    <table border="1">
+        <table class="table table-borderless">
         <tr>
-            <td>제목</td>
-            <td><input type="text" name="title" id="title" required/></td>
+            <td><label for="title" class="col-form-label">제목</label></td>
+            <td><input type="text" name="title" id="title" class="form-control"></td>
         </tr>
         <tr>
-            <td>작성자</td>
-            <td><input type="text" name="uid" id="uid" required/></td>
+            <td><label for="content" class="col-form-label">내용</label></td>
+            <td><textarea name="content" id="content" class="form-control" rows="10"></textarea></td>
         </tr>
         <tr>
-            <td>내용</td>
-            <td><textarea name="content" id="content" cols="30" rows="10" required></textarea></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <button type="submit" value ="글쓰기"/>글쓰기</button>
+            <td colspan="2" style="text-align: center;">
+                <input class="btn btn-primary" type="submit" value="제출">
+                <input class="btn btn-secondary" type="reset" value="취소">
             </td>
         </tr>
     </table>
@@ -73,5 +47,4 @@ module.exports = {
 </body>
 </html>
         `;
-    }
 }

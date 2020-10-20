@@ -6,11 +6,11 @@ module.exports = {
         for(let row of rows){
             tableRow += 
             `<tr>
-            <td>ID : ${row.uid}  </td>
-            <td>이름 : ${row.uname}</td>
-            <td>전화번호 : ${row.tel}</td>
-            <td>이메일 : ${row.email}</td>
-            <td>등록일자 : ${row.regDate}</td>
+            <td>${row.uid}  </td>
+            <td>${row.uname}</td>
+            <td>${row.tel}</td>
+            <td>${row.email}</td>
+            <td>${row.regDate}</td>
             <td>
             <a href = "/user/update/${row.uid}">수정 </a>
             <a href = "/user/delete/${row.uid}">삭제</a>
@@ -66,7 +66,7 @@ module.exports = {
             <th>액션</th>
             ${tableRow}
             </table>
-            ${template.footer()};
+            ${template.footer()}
         `;
     }
 }

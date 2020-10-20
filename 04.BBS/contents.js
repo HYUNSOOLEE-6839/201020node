@@ -1,7 +1,20 @@
 const template = require('./view/maintemplate')
 
 module.exports = {
-    viewForm : function(rows){
+    viewForm : function(navBar, rows, replies) {
+        let content = rows.content.replace(/\n/g, '<br>');
+        let cards = '';
+        for (let reply of replies) {
+            cards += (reply.isMine == 0) ?
+                    `<div class="card bg-light text-dark mt-1" style="margin-right: 45%;">` :
+                    `<div class="card text-right mt-1" style="margin-left: 60%;">`;
+            cards += `
+                        <div class="card-body">
+                            ${reply.uname}&nbsp;&nbsp;${reply.regTime}<br>
+                            ${reply.content.replace(/\r/g, '<br>')}
+                        </div>
+                    </div>`;
+        }
         return`
         <!DOCTYPE html>
         <html lang="ko">
@@ -16,49 +29,48 @@ module.exports = {
             <script src="/bootstrap/js/bootstrap.min.js"></script>
         </head>
         <body>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-        <a class="navbar-brand" href="#" >
-            <img src="/img/호서.jpg" alt="호서직업능력개발원"
-                    style="height : 40px; margin-left : 50px; margin-right : 100px;">
-        </a>
-        <ul class="nav mr- auto">
-            <li class="nav-item">
-        <a class="nav-link" href='/bbs'><i class="fas fa-home">홈</i></a>
-  </li>
-  <li class="nav-item">
-  <a class="nav-link" href='/bbs/bid/write'><i class="fas fa-home">글 쓰기</i></a>
-  </li>
-  <li class="nav-item">
-  <a class="nav-link" href='/user/getInfo'><i class="fas fa-home">사용자 조회</i></a>
-  </li>
-  <li class="nav-item">
-        <a class="nav-link" href='/'><i class="fas fa-sign-out-alt"></i>로그아웃</i></a>
-  </li>
-</ul>
-  <div class="navbar-text fixed-right" id="weather">
-      홍길동님 반갑습니다.
-      날씨 : 맑음, 온도 : 20&deg;C
-      <i class="fas fa-sun"></i>
-  </div>
-</nav>
+        ${template.navBar}
 
-    <div class="container" style="margin-top:90px;">
-    <form action="/view" method="post">
-    <table class="table table-hover">
-            <th>번호 : ${rows.bid}  </th>
-            <th>제목 : ${rows.title}</th>
-            <tr>
-            <th>작성자 : ${rows.uid}</th>
-            <th>작성시간 : ${rows.modTime}</th>
-            </tr>
-            <th>조회수 : ${rows.viewCount}</th>
-            <tr>
-            <td>내용 : ${rows.content}</td>
-            </tr>
-</table>
+        <div class="container" style="margin-top: 90px;">  
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-7">
+                <h4>${rows.title}</h4>
+                <h6>글번호: ${rows.bid} | ${rows.modTime}</h6>
+            </div>
+            <div class="col-3" style="text-align: right;">
+                <h4>${rows.uname}</h4>
+                <h6>조회 ${rows.viewCount+1}&nbsp;&nbsp;댓글 ${rows.replyCount}</h6>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-12"><hr></div>
+            <div class="col-1"></div>
+            <div class="col-10">
+                <p>${rows.content}</p>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-10"></div>
+            <div class="col-2">
+                <span style="font-size: 1.5em;">
+                    <a href="/bbs/update/${rows.bid}/uid/${rows.uid}"><i class="fas fa-edit"></i></a>&nbsp;
+                    <a href="/bbs/delete/${rows.bid}/uid/${rows.uid}"><i class="fas fa-trash-alt"></i></a>
+                </span>
+            </div>
+            <div class="col-12"><hr></div>
+            <div class="col-1"></div>
+            <div class="col-10">
+                ${rows.cards}
+                <form class="form-inline" action="/bbs/reply" method="post">
+                    <input type="hidden" name="bid" value="${rows.bid}">
+                    <input type="hidden" name="uid" value="${rows.uid}">
+                    <label for="content" class="ml-5 mt-3 mr-3">댓글</label>
+                    <textarea class="ml-3 mt-3 mr-3" id="content" name="content" rows="3" cols="80"></textarea>
+                    <button type="submit" class="btn btn-primary ml-3 mt-3 mr-5">등록</button>
+                </form>
+            </div>
+            <div class="col-1"></div>
         </div>
-</body>
-</html>
+    </div>
 ${template.footer()};
         `;
     }

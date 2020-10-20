@@ -3,6 +3,15 @@ const ut = require('./util')
 const dm = require('./db/db.init')
 const alert = require('./view/alertMsg')
 const uRouter = express.Router();
+
+uRouter.get('/user/getInfo', ut.isLoggedIn, (req, res) => {
+    if (req.session.uid === 'admin') {
+        res.redirect('/bbs');
+    } else {
+        res.redirect(`/user/update/${req.session.uid}`);
+    }
+});
+
 uRouter.get('/register',(req, res) => {
     const view = require('./view/userRegister')
     let html = view.register();
@@ -41,35 +50,59 @@ uRouter.get('/getInfo', (req,res) => {
     });
 });
 
-uRouter.get('/delete/:uid', (req, res) => {
+uRouter.get('/delete/:uid', ut.isLoggedIn, (req, res) => {
     let uid = req.params.uid;
-    console.log(uid);
-    dm.deleteUser(uid, rows => {
-        console.log(uid);
+    if (req.session.uid !== 'admin') {
+        let html = alert.alertMsg('삭제 권한이 없습니다.', `/bbs`);
+        res.send(html);
+    } else {
+        let view = require('./view/userDelete');
+        let html = view.delete(uid);
+        res.send(html);
+    }
+});
+
+uRouter.get('/deleteConfirm/:uid', ut.isLoggedIn, (req, res) => {
+    let uid = req.params.uid;
+    dm.deleteUser(uid, () => {
         res.redirect('/user/getInfo');
     });
 });
 
-uRouter.get('/update/:uid', (req, res) => {
+uRouter.get('/update/:uid', ut.isLoggedIn, (req, res) => {
     let uid = req.params.uid;
-    console.log(uid);
-    dm.updateUser(uid, rows => {
+    if (uid != req.session.uid) {
+        let html = alert.alertMsg('수정 권한이 없습니다.', `/bbs`);
+        res.send(html);
+    } else{
+        dm.getUser(uid, rows => {
         const view = require('./view/update')
         let html = view.updateForm(rows);
         console.log(uid);
         res.send(html);
-    });
+        });
+    }
 });
 
-uRouter.post('/update', (req, res) => {
+uRouter.post('/update', ut.isLoggedIn, (req, res) => {
     let uid = req.body.uid;
+    let pwdHash = req.body.pwdHash;
+    let pwd = req.body.pwd;
+    let pwd2 = req.body.pwd2;
     let uname = req.body.uname;
-    let tel = req.body.utel;
+    let tel = req.body.tel;
     let email = req.body.email;
-    let params = [uid, uname, tel, email];
-    dm.updateUser(params, uid => {
+    if (pwd && pwd !== pwd2) {
+        let html = alert.alertMsg('패스워드가 다릅니다.', `/user/update/${uid}`);
+        res.send(html);
+    } else {
+        if (pwd)
+            pwdHash = ut.generateHash(pwd);
+        let params = [pwdHash, uname, tel, email, uid];
+    dm.updateUser(params, () => {
         res.redirect('/user/getInfo');
-    });
+        });
+    }
 });
 
 

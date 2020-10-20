@@ -1,12 +1,10 @@
-const template = require('./view/maintemplate')
-
 module.exports = {
     mainForm : function(rows){
         let tableRow = '';
         for (let row of rows){
             tableRow += `<tr>
                             <td style="padding-right: 20px">${row.bid}</td>
-                            <td style="padding-right: 120px"><a href ="/bbs/bid/${row.bid}">${row.title}</a></td>
+                            <td style="padding-right: 120px"><a href="/bbs/bid/${row.bid}">${row.title}</a></td>
                             <td style="padding-right: 30px">${row.uid}</td>
                             <td style="padding-right: 30px">${row.modTime}</td>
                             <td style="padding-right: 30px">${row.viewCount}</td>
@@ -17,7 +15,7 @@ module.exports = {
                         </tr>`;
         }
         return `
-<!DOCTYPE html>
+        <!DOCTYPE html>
         <html lang="ko">
         <head>
             <title>My BBS</title>
@@ -30,8 +28,31 @@ module.exports = {
             <script src="/bootstrap/js/bootstrap.min.js"></script>
         </head>
         <body>
-        ${template.navBar}
-
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+        <a class="navbar-brand" href="#" >
+            <img src="/img/호서.jpg" alt="호서직업능력개발원"
+                    style="height : 40px; margin-left : 50px; margin-right : 100px;">
+        </a>
+        <ul class="nav mr- auto">
+            <li class="nav-item">
+        <a class="nav-link" href='/bbs'><i class="fas fa-home">홈</i></a>
+  </li>
+  <li class="nav-item">
+  <a class="nav-link" href='/bbs/bid/write'><i class="fas fa-home">글 쓰기</i></a>
+  </li>
+  <li class="nav-item">
+  <a class="nav-link" href='/user/getInfo'><i class="fas fa-home">사용자 조회</i></a>
+  </li>
+  <li class="nav-item">
+        <a class="nav-link" href='/'><i class="fas fa-sign-out-alt"></i>로그아웃</i></a>
+  </li>
+</ul>
+  <div class="navbar-text fixed-right" id="weather">
+      홍길동님 반갑습니다.
+      날씨 : 맑음, 온도 : 20&deg;C
+      <i class="fas fa-sun"></i>
+  </div>
+</nav>
 
     <div class="container" style="margin-top:90px;">
     </div>
@@ -53,13 +74,26 @@ module.exports = {
         </div>
         <ul class="pagination justify-content-center">
     <li class="page-item"><a class="page-link" href="#"><<</a></li>
-    <li class="page-item"><a class="page-link" href="/bbs/list/1">1</a></li>
-    <li class="page-item active"><a class="page-link" href="#">2</a></li>
+    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="bbs/list2">2</a></li>
     <li class="page-item"><a class="page-link" href="#">>></a></li>
         </ul>
-        </body>
-        </html>
-        ${template.footer()};
+        <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center fixed-bottom">
+    <span class="navbar-text">
+        Copyright &copy; 2020 Hoseo Institute of Big Data
+    </span>
+</nav>
         `;
+},
+footer:function (){
+    return `
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center fixed-bottom">
+    <span class="navbar-text">
+        Copyright &copy; 2020 Hoseo Institute of Big Data
+    </span>
+</nav>
+</body>
+</html> 
+            `
+            }
     }
-}
