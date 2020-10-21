@@ -3,10 +3,11 @@ const ut = require('./util')
 const dm = require('./db/db.init')
 const alert = require('./view/alertMsg')
 const uRouter = express.Router();
+const template = require('./view/maintemplate')
 
 uRouter.get('/user/getInfo', ut.isLoggedIn, (req, res) => {
     if (req.session.uid === 'admin') {
-        res.redirect('/bbs');
+        res.redirect('/bbs/list/1');
     } else {
         res.redirect(`/user/update/${req.session.uid}`);
     }

@@ -16,20 +16,8 @@ module.exports = {
                     </div>`;
         }
         return`
-        <!DOCTYPE html>
-        <html lang="ko">
-        <head>
-            <title>My BBS</title>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-            <link rel="stylesheet" href="/fontawesome-free-5.15.1-web/css/all.min.css">
-            <script src="/jquery/jquery.min.js"></script>
-            <script src="/popper/popper.min.js"></script>
-            <script src="/bootstrap/js/bootstrap.min.js"></script>
-        </head>
-        <body>
-        ${template.navBar}
+        ${template.mainForm()}
+        ${navBar}
 
         <div class="container" style="margin-top: 90px;">  
         <div class="row">
@@ -46,7 +34,7 @@ module.exports = {
             <div class="col-12"><hr></div>
             <div class="col-1"></div>
             <div class="col-10">
-                <p>${rows.content}</p>
+                <p>${content}</p>
             </div>
             <div class="col-1"></div>
             <div class="col-10"></div>
@@ -59,7 +47,7 @@ module.exports = {
             <div class="col-12"><hr></div>
             <div class="col-1"></div>
             <div class="col-10">
-                ${rows.cards}
+                ${cards}
                 <form class="form-inline" action="/bbs/reply" method="post">
                     <input type="hidden" name="bid" value="${rows.bid}">
                     <input type="hidden" name="uid" value="${rows.uid}">

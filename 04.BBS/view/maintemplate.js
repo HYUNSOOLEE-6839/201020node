@@ -16,25 +16,25 @@ module.exports = {
         <body>
         `;
     },
-    navBar:     function(uname) {
+    navBar:     function(uname){
         return `
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
             <a class="navbar-brand" href="#">
-                <img src="/img/호서.jpg" alt="호서직업능력개발원"
+                <img src="/img/hoseo.png" alt="호서직업능력개발원"
                     style="height: 40px; margin-left: 50px; margin-right: 100px;">
             </a>
             <ul class="nav mr-auto">
                 <li class="nav-item nav-light">
-                    <a class="nav-link" href="/bbs/list/1"><i class="fas fa-home"></i>홈</a>
+                    <a class="nav-link" href="/bbs/list/1"><i class="fas fa-home"></i>홈&nbsp;&nbsp;&nbsp;&nbsp;</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/bbs/bid/write"><i class="far fa-edit"></i>글쓰기</a>
+                    <a class="nav-link" href="/bbs/bid/write"><i class="far fa-edit"></i>글쓰기&nbsp;&nbsp;&nbsp;&nbsp;</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/getInfo"><i class="far fa-user"></i>사용자</a>
+                    <a class="nav-link" href="/user/getInfo"><i class="far fa-user"></i>사용자&nbsp;&nbsp;</a>
                 </li>
                 <li class="nav-item ml-5">
-                    <a class="nav-link" href="/">로그아웃</a>
+                    <a class="nav-link" href="/"><i class="fas fa-sign-out-alt"></i>로그아웃</a>
                 </li>
             </ul>
             <nav class="navbar navbar-light mr-4">

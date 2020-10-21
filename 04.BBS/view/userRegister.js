@@ -14,19 +14,19 @@ module.exports.register = function () {
         <form action="/user/register" method="post">
             <table class="table table-borderless">
                 <tr>
-                    <td><label for ="uid">사용자 ID</label></td>
+                    <td><label for ="uid">사용자 ID &nbsp; <span class="text-danger">*</span></label></td>
                     <td><input type="text" name="uid" id="uid"></td>
                 </tr>
                 <tr>
-                    <td><label for ="pwd">패스워드</label></td>
+                    <td><label for ="pwd">패스워드&nbsp;<span class="text-danger">*</span></label></td>
                     <td><input type="password" name="pwd" id="pwd"></td>
                 </tr>
                 <tr>
-                    <td><label for ="pwd2">패스워드 확인</label></td>
+                    <td><label for ="pwd2">패스워드 확인&nbsp;<span class="text-danger">*</span></label></td>
                     <td><input type="password" name="pwd2" id="pwd2"></td>
                 </tr>
                 <tr>
-                    <td><label for ="name">이름</label></td>
+                    <td><label for ="name">이름&nbsp;<span class="text-danger">*</span></label></td>
                     <td><input type="text" name="uname" id="uname"></td>
                 </tr>
                 <tr>

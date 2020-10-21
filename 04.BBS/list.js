@@ -1,9 +1,9 @@
 const template = require('./view/maintemplate')
 const ut = require('./util')
 
-module.exports.mainForm = function (navBar, rows, pageNo, startPage, endPage, totalPage) {
+module.exports.mainForm = function (navBar, data, pageNo, startPage, endPage, totalPage) {
         let trs = '';
-        for (let row of rows) {
+        for (let row of data) {
             let displayTime = ut.getDisplayTime(row.modTime);
         let title = (row.replyCount == 0) ? row.title :
             `${row.title}<span class="text-danger">[${row.replyCount}]</span>`;
@@ -12,7 +12,8 @@ module.exports.mainForm = function (navBar, rows, pageNo, startPage, endPage, to
                     <td class="col-6"><a href="/bbs/bid/${row.bid}"><strong>${title}</strong></a></td>
                     <td class="col-2" style="text-align: center;">${row.uname}</td>
                     <td class="col-2" style="text-align: center;">${displayTime}</td>
-                    <td class="col-1" style="text-align: center;">${row.viewCount}</td>
+                    <td class="col-1" style="text-align: center;"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;${row.replyCount}</td>
+                    <td class="col-1" style="text-align: center;"><i class="far fa-eye"></i>&nbsp;&nbsp;${row.viewCount}</td>
                 </tr>
         `;
         }
@@ -39,7 +40,7 @@ module.exports.mainForm = function (navBar, rows, pageNo, startPage, endPage, to
         return `
 
         ${template.mainForm}
-        ${template.navBar}
+        ${navBar}
 
 <div class="container" style="margin-top: 90px;">  
     <div class="row">
@@ -48,13 +49,14 @@ module.exports.mainForm = function (navBar, rows, pageNo, startPage, endPage, to
             <hr>
         </div>
         <div class="col-1"></div>
-        <div class="col-10">
+        <div class="col-12">
             <table class="table table-condensed table-hover">
-                <tr class="table-secondary d-flex">
+                <tr class="table-dark text-dark d-flex">
                     <td class="col-1" style="text-align: center;"><strong>번호</strong></td>
                     <td class="col-6" style="text-align: center;"><strong>제목</strong></td>
                     <td class="col-2" style="text-align: center;"><strong>글쓴이</strong></td>
                     <td class="col-2" style="text-align: center;"><strong>날짜/시간</strong></td>
+                    <td class="col-1" style="text-align: center;"><strong>댓글수</strong></td>
                     <td class="col-1" style="text-align: center;"><strong>조회수</strong></td>
                 </tr>
                 ${trs}
