@@ -1,4 +1,4 @@
-const template = require('./maintemplate');
+const template = require('../view/maintemplate')
 
 module.exports.update = function (navBar, data) {
 	return `

@@ -1,4 +1,4 @@
-const template = require('./maintemplate');
+const template = require('../view/maintemplate')
 const ut = require('../util');
 
 module.exports.list = function (navBar, data) {

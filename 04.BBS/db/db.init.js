@@ -18,24 +18,24 @@ module.exports = {
             });
             return conn;
         },
-        getAllLists: function(callback){
-    let sql = `CREATE TABLE if not exists users(
-        uid VARCHAR(20) NOT NULL PRIMARY KEY,
-        pwd CHAR(44) NOT null,
-        uname VARCHAR(20) NOT null,
-        tel varchar(20),
-        email varchar(40),
-        regDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-        isDeleted INT DEFAULT 0 
-        );
-    `;
-    let conn = this.getConnection();
-    conn.query(sql, (error, fields) =>{
-        if(error)
-            console.log(error);
-    });
-    conn.end();
-},
+    getAllLists: function(callback){
+        let sql = `CREATE TABLE if not exists users(
+            uid VARCHAR(20) NOT NULL PRIMARY KEY,
+            pwd CHAR(44) NOT null,
+            uname VARCHAR(20) NOT null,
+            tel varchar(20),
+            email varchar(40),
+            regDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+            isDeleted INT DEFAULT 0 
+            );
+        `;
+        let conn = this.getConnection();
+        conn.query(sql, (error, fields) =>{
+            if(error)
+                console.log(error);
+        });
+        conn.end();
+    },
 
     getBbsList:     function(offset, callback) {
         let conn = this.getConnection();
@@ -81,7 +81,7 @@ module.exports = {
             callback(rows[0]);      // 주의할 것
         });
         conn.end();
-        },
+    },
 
   updateBbs:  function(params, callback) {
         let conn = this.getConnection();
@@ -108,7 +108,7 @@ module.exports = {
             callback(rows);
         });
         conn.end();
-        },
+    },
 
     increaseReplyCount:  function(bid, callback) {
         let conn = this.getConnection();
@@ -119,7 +119,8 @@ module.exports = {
             callback();
         });
         conn.end();
-        },
+    },
+
     insertReply:  function(params, callback) {
         let conn = this.getConnection();
         let sql = `insert into reply(bid, uid, content, isMine) values(?,?,?,?);`;
@@ -129,7 +130,7 @@ module.exports = {
             callback();
         });
         conn.end();
-        },
+    },
 
     getContents:    function(bid, callback) {
         let conn = this.getConnection();
@@ -147,7 +148,7 @@ module.exports = {
             callback(rows[0]);
         });
         conn.end();
-        },
+    },
 
     incrementCount:    function(bid, callback) {
         let conn = this.getConnection();
@@ -158,7 +159,7 @@ module.exports = {
             callback();
         });
         conn.end();
-        },
+    },
 
     getSearchList:     function(keyword, callback) {
         let conn = this.getConnection();
@@ -175,10 +176,8 @@ module.exports = {
             callback(rows);
         });
         conn.end();
-        },
+    },
 
-
-        
     getWrite:    function(params, callback) {
         let conn = this.getConnection();
         let sql = `insert into bbs(uid, title, content) VALUES(?, ?, ?);`;
@@ -188,7 +187,7 @@ module.exports = {
             callback();
         });
         conn.end();
-        },
+    },
         
         
     getDelete: function(bid, callback){
@@ -200,62 +199,64 @@ module.exports = {
             callback();
         });
         conn.end();   
-        },
+    },
+
         // 유저
-        getUser: function(uid, callback){
-            let sql = `SELECT * from users WHERE uid=?;`
-            let conn = this.getConnection();
-            conn.query(sql, uid, function(error, rows, fields){
-                if(error)
-                console.log(error);
-                callback(rows[0]);     
-            });
-            conn.end();  
-        },
-        
-        getInfo: function(uid, callback){
-            let conn = this.getConnection();
-            let sql = `SELECT uid, uname, tel, email, date_format(regDate, '%Y-%m-%d %T') AS regDate FROM users where isDeleted=0;`;
-            conn.query(sql, uid, (error, rows, fields) =>{
-                if(error)
-                console.log(error);
-                callback(rows);
-            });
-            conn.end();
-        },
-        
-        registerUser : function(params, callback){
-            let sql = `insert into users(uid, pwd, uname, tel, email) values(?, ?, ?, ?, ?);`;
-            let conn = this.getConnection();
-            conn.query(sql, params, function(error, fields){
-                if(error)
-                console.log(error);
-                callback();
-            });
-            conn.end();   
-        },
+
+    getUser: function(uid, callback){
+        let sql = `SELECT * from users WHERE uid=?;`
+        let conn = this.getConnection();
+        conn.query(sql, uid, function(error, rows, fields){
+            if(error)
+            console.log(error);
+            callback(rows[0]);     
+        });
+        conn.end();  
+    },
     
-        getUserInfo :    function(uid, callback) {
-            let conn = this.getConnection();
-            let sql = `select * from users where uid like ?;`;
-            conn.query(sql, uid, (error, results, fields) => {
-                if (error)
-                    console.log(error);
-                    callback(results[0]);   // 주의할 것
-                });
-                conn.end();
-            },
-            
-        deleteUser:     function(uid, callback) {
-            let conn = this.getConnection();
-            let sql = `update users set isDeleted=1 where uid=?;`;
-            conn.query(sql, uid, (error, fields) => {
-                if (error)
-                    console.log(error);
-                callback();
-            });
-            conn.end();
-            },
+    getInfo: function(uid, callback){
+        let conn = this.getConnection();
+        let sql = `SELECT uid, uname, tel, email, date_format(regDate, '%Y-%m-%d %T') AS regDate FROM users where isDeleted=0;`;
+        conn.query(sql, uid, (error, rows, fields) =>{
+            if(error)
+            console.log(error);
+            callback(rows);
+        });
+        conn.end();
+    },
+    
+    registerUser : function(params, callback){
+        let sql = `insert into users(uid, pwd, uname, tel, email) values(?, ?, ?, ?, ?);`;
+        let conn = this.getConnection();
+        conn.query(sql, params, function(error, fields){
+            if(error)
+            console.log(error);
+            callback();
+        });
+        conn.end();   
+    },
+
+    getUserInfo :    function(uid, callback) {
+        let conn = this.getConnection();
+        let sql = `select * from users where uid like ?;`;
+        conn.query(sql, uid, (error, results, fields) => {
+            if (error)
+            console.log(error);
+            callback(results[0]);   // 주의할 것
+        });
+        conn.end();
+    },
+        
+    deleteUser:     function(uid, callback) {
+        let conn = this.getConnection();
+        let sql = `update users set isDeleted=1 where uid=?;`;
+        conn.query(sql, uid, (error, fields) => {
+            if (error)
+            console.log(error);
+            callback();
+        });
+        conn.end();
+    },
         
         updateUser : function (params, callback){
             let sql = `update users set pwd=?, uname=?, tel=?, email=? where uid=?`;
@@ -267,37 +268,4 @@ module.exports = {
             });
             conn.end();   
         }
-}
-            
-        /* getContents:    function(bid, callback) {
-            let conn = this.getConnection();
-            let sql = `SELECT bid, title, uid, date_format(modTime, '%Y-%m-%d %T') AS modTime, content, viewCount FROM bbs WHERE bid = ?`;
-            conn.query(sql, bid, (error, rows, fields) => {
-                if (error)
-                    console.log(error);
-                callback(rows[0]);
-            });
-            conn.end();
-        }, */
-
-
-            /* deleteUser : function(uid, callback){
-                let sql = `delete from users where sid =?`;
-                let conn = this.getConnection();
-                conn.query(sql, uid, function(error, fields){
-                    if(error)
-                    console.log(error);
-                    callback();
-                });
-                conn.end();   
-            }, */
-            /* updateUser : function(params, callback){
-                let sql = `update users set email=?, tel=?, pwd=? where uid=?`;
-            let conn = this.getConnection();
-            conn.query(sql, params, function(error, fields){
-                if(error)
-                console.log(error);
-                callback();
-            });
-            conn.end();   
-        } */
+};

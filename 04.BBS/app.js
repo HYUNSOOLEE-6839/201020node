@@ -3,15 +3,12 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const Filestore = require('session-file-store')(session);
-const uRouter = require('./userRouter');
-const bRouter = require('./bbsRouter')
+const uRouter = require('./router/userRouter');
+const bRouter = require('./router/bbsRouter')
 const fs = require('fs')
 const alert = require('./view/alertMsg')
 const dm = require('./db/db.init')
 const ut = require('./util')
-
-
-
 
 const app = express();
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
@@ -26,6 +23,7 @@ app.use(session({
     saveUninitialized: true,
     store: new Filestore({LogFn: function(){}})
 }));
+
 app.use('/user', uRouter);
 app.use('/bbs', bRouter);
 

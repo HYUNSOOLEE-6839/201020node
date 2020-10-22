@@ -1,4 +1,4 @@
-const template = require('./view/maintemplate')
+const template = require('../view/maintemplate')
 
 module.exports = {
     viewForm : function(navBar, rows, replies) {

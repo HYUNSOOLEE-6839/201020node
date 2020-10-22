@@ -1,4 +1,4 @@
-const template = require('./view/maintemplate')
+const template = require('../view/maintemplate')
 
 module.exports = {
     InfoForm : function(rows){
@@ -20,7 +20,7 @@ module.exports = {
         }
         return `
         ${template.mainForm()}
-        ${template.navBar}
+        ${template.navBar()}
 
     <div class="container" style="margin-top:90px;">
     <form action="/Info" method="post">

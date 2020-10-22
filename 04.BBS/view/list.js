@@ -1,5 +1,5 @@
-const template = require('./view/maintemplate')
-const ut = require('./util')
+const template = require('../view/maintemplate')
+const ut = require('../util')
 
 module.exports.mainForm = function (navBar, data, pageNo, startPage, endPage, totalPage) {
         let trs = '';
@@ -61,6 +61,11 @@ module.exports.mainForm = function (navBar, data, pageNo, startPage, endPage, to
                 </tr>
                 ${trs}
             </table>
+            <button class="btn btn-success float-right" onclick="location.href='/bbs/bid/write'">글쓰기</button>
+            <form class="form-inline float-right" action="/bbs/search" method="post">
+                    <input class="form-control mr-sm-2" type="search" placeholder="검색" aria-label="Search" name="keyword">
+                </form>
+            <br><br><br>
             <ul class="pagination justify-content-center">
                 ${pages}
             </ul>

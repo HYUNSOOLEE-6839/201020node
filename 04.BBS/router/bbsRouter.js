@@ -1,9 +1,11 @@
 const express = require('express');
-const ut = require('./util')
-const dm = require('./db/db.init')
-const alert = require('./view/alertMsg');
-const template = require('./view/maintemplate');
+const ut = require('../util')
+const dm = require('../db/db.init')
+const alert = require('../view/alertMsg');
+const template = require('../view/maintemplate');
 const bRouter = express.Router();
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 
 bRouter.get('/list/:page', ut.isLoggedIn, (req, res) => {
@@ -16,7 +18,7 @@ bRouter.get('/list/:page', ut.isLoggedIn, (req, res) => {
         let endPage = Math.ceil(page/10)*10;
         endPage = (endPage > totalPage) ? totalPage : endPage;
         dm.getBbsList(offset, data => {
-            let view = require('./list');
+            let view = require('../view/list');
             let navBar = template.navBar(req.session.uname?req.session.uname:'');
             let html = view.mainForm(navBar, data, page, startPage, endPage, totalPage);
             res.send(html);
@@ -25,30 +27,12 @@ bRouter.get('/list/:page', ut.isLoggedIn, (req, res) => {
 });
 
 
-/* bRouter.get('/list/1',(req, res) => {
-    dm.getAllList(rows =>{
-        const view = require('./list')
-        let html = view.mainForm(rows);
-        res.send(html);
-    })
-});
-
-bRouter.get('/list/2', (req,res) => {
-    dm.getnextList(rows => {
-        const view = require('./list2')
-        let html = view.mainForm(rows);
-        res.end(html);
-    });
-}); */
-
 bRouter.get('/bid/write', ut.isLoggedIn, (req,res) => {
-    /* dm.getWrite(rows => { */
-        const view = require('./write')
+        const view = require('../view/write')
         let navBar = template.navBar(req.session.uname?req.session.uname:'${uname}');
         let html = view.mainForm(navBar);
         res.send(html);
     });
-/* }); */
 
 bRouter.post('/bid/write', ut.isLoggedIn, (req,res) => {
     let title = req.body.title;
@@ -65,7 +49,7 @@ bRouter.get('/bid/:bid', (req,res) => {
     dm.getContents(bid, rows => {
         dm.incrementCount(bid, () => {
             dm.getReplyData(bid, replies => {
-                const view = require('./contents')
+                const view = require('../view/contents')
                 let navBar = template.navBar(req.session.uname?req.session.uname:'개발자');
                 let html = view.viewForm(navBar, rows, replies);
             res.end(html);
@@ -94,7 +78,7 @@ bRouter.get('/delete/:bid/uid/:uid', ut.isLoggedIn, (req, res) => {
         let html = alert.alertMsg('삭제 권한이 없습니다.', `/bbs/bid/${bid}`);
         res.send(html);
     } else {
-        let view = require('./view/bbsDelete');
+        let view = require('../view/bbsDelete');
         let navBar = template.navBar(req.session.uname?req.session.uname:'개발자');
         let html = view.delete(navBar, bid);
         res.send(html);
@@ -117,7 +101,7 @@ bRouter.get('/update/:bid/uid/:uid', ut.isLoggedIn, (req, res) => {
         res.send(html);
     } else {
         dm.getBbsData(bid, result => {
-            let view = require('./view/bbsUpdate');
+            let view = require('../view/bbsUpdate');
             let navBar = template.navBar(req.session.uname?req.session.uname:'개발자');
             let html = view.update(navBar, result);
             res.send(html);
@@ -139,7 +123,7 @@ bRouter.post('/search', ut.isLoggedIn, (req, res) => {
     let keyword = '%' + req.body.keyword + '%';
     console.log(keyword);
     dm.getSearchList(keyword, rows => {
-        let view = require('./view/bbsSearchList');
+        let view = require('../view/bbsSearchList');
         let navBar = template.navBar(req.session.uname?req.session.uname:'개발자');
         let html = view.list(navBar, rows);
         res.send(html);

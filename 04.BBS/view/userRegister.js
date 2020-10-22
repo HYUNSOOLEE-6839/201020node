@@ -37,7 +37,6 @@ module.exports.register = function () {
                     <td><label for ="email">이메일</label></td>
                     <td><input type="text" name="email" id="email"></td>
                 </tr>
-                <tr>
                     <td colspan ="2" style="text-align : center;">
                         <input class="btn btn-primary" type = "submit" value="가입">
                         <input class="btn btn-danger" type = "reset" value="취소">
