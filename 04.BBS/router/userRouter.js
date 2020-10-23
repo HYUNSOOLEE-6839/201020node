@@ -1,11 +1,25 @@
 const express = require('express');
 const ut = require('../util')
 const dm = require('../db/db.init')
+const pm = require('path')
 const alert = require('../view/alertMsg')
 const uRouter = express.Router();
 const template = require('../view/maintemplate')
 const multer  = require('multer')
-const storage = multer.diskStorage({
+const path = pm.join(__dirname, 'view/maintemplate');
+// multer setting
+const upload = multer({
+    storage: multer.diskStorage({
+        // set a localstorage destination
+        destination: __dirname + '/../public/upload',
+        // set a file name
+        filename: (req, file, cb) => {
+            cb(null, new Date().toISOString().replace(/[-:\.A-Z]/g, '') + '_' + file.originalname);
+        }
+    })
+});
+
+/* const storage = multer.diskStorage({
     destination: (req, file, callback) => {
         callback(null, "uploads/");
     },
@@ -13,7 +27,7 @@ const storage = multer.diskStorage({
         callback(null, file.originalname);
     }
 });
-const upload = multer({ storage:storage });
+const upload = multer({ storage:storage }); */
 
 
 uRouter.get('/user/getInfo', ut.isLoggedIn, (req, res) => {
@@ -97,7 +111,7 @@ uRouter.get('/update/:uid', ut.isLoggedIn, (req, res) => {
     }
 });
 
-uRouter.post('/update', ut.isLoggedIn, upload.single('profile_img'), (req, res, next) => {
+uRouter.post('/update', ut.isLoggedIn, upload.single('photo'), (req, res, next) => {
     let uid = req.body.uid;
     let pwdHash = req.body.pwdHash;
     let pwd = req.body.pwd;
@@ -112,7 +126,7 @@ uRouter.post('/update', ut.isLoggedIn, upload.single('profile_img'), (req, res, 
     } else {
         if (pwd)
             pwdHash = ut.generateHash(pwd);
-        let params = [pwdHash, uname, tel, email, uid];
+        let params = [photo, pwdHash, uname, tel, email, uid];
     dm.updateUser(params, () => {
         res.redirect('/user/getInfo');
         });

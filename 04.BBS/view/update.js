@@ -19,6 +19,9 @@ module.exports.updateForm = function(rows) {
                     <tr>
                         <td><label for="uid">사용자 ID</label></td>
                         <td><span id="uid">${rows.uid}</span></td>
+                        <td rowspan="6">
+                                <img src="${rows.photo}" width="150">
+                        </td>
                     </tr>
                     <tr>
                             <td><label for="pwd">패스워드</label></td>
@@ -41,11 +44,19 @@ module.exports.updateForm = function(rows) {
                         <td><input type="text" name ="email" id ="email" value="${rows.email}"/></td>
                     </tr>
                     <tr>
-                    <td><label for="profile_img">사진</label><td>
+                        <td><label for="photo">사진</label></td>
                         <td colspan="2">
-                            <div class = "custom-file mb-4 border">
-                                <input type='file' class = "custom-file-input" name='profile_img' accept='upload/jpg, upload/png, upload/jpeg' />
-                                <label class="custom-file-label" for="profile_img">업로드할 사진 파일 선택</label>
+                            <div class = "custom-file mb-3 border">
+                            <input type='file' class = "custom-file-input" name='photo'/>
+                            <label class="custom-file-label" for="photo">업로드할 사진 파일 선택</label>
+
+                            <script>
+                            // Add the following code if you want the name of the file appear on select
+                            $(".custom-file-input").on("change", function () {
+                                var fileName = $(this).val().split("\\").pop();
+                                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                            });
+                            </script>
                             </div>
                         </td>
                     </tr>
@@ -55,11 +66,13 @@ module.exports.updateForm = function(rows) {
                     </tr>
                 </table>
             </form>
-        
+        <div class="col-2"></div>
     </div>
 </div>
     </html>
     ${template.footer()}
+    ${template.uploadScript()}
     `
 }
+
 // update 간에는 hidden으로 sid 값을 하나 더 줘야함.

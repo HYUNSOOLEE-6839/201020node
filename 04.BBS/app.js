@@ -4,13 +4,17 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const Filestore = require('session-file-store')(session);
 const uRouter = require('./router/userRouter');
-const bRouter = require('./router/bbsRouter')
-const fs = require('fs')
-const alert = require('./view/alertMsg')
-const dm = require('./db/db.init')
-const ut = require('./util')
+const bRouter = require('./router/bbsRouter');
+const fs = require('fs');
+const alert = require('./view/alertMsg');
+const dm = require('./db/db.init');
+const ut = require('./util');
+
+
 
 const app = express();
+
+
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/popper', express.static(__dirname + '/node_modules/@popper.js/core/dist/umd'));

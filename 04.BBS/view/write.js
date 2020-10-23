@@ -4,6 +4,7 @@ module.exports.mainForm = function (navBar) {
         
         return `
         ${template.mainForm()}
+        <script src="/ckeditor/ckeditor.js"></script>
         ${navBar}
 
     <div class="container" style="margin-top:90px;">

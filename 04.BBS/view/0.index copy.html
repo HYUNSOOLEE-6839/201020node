@@ -9,6 +9,7 @@
   <script src="/jquery/jquery.min.js"></script>
   <script src="/popper/popper.min.js"></script>
   <script src="/bootstrap/js/bootstrap.min.js"></script>
+  <link type="text/css" rel="stylesheet" href="03.My style.css">
   <style>
   /* Make the image fully responsive */
   .carousel-inner img {
@@ -19,30 +20,7 @@
 </head>
 <body>
   <div class="container-fluid">
-    <div id="demo" class="carousel slide" data-ride="carousel">
-      <ul class="carousel-indicators">
-        <li data-target="#demo" data-slide-to="0" class="active"></li>
-        <li data-target="#demo" data-slide-to="1"></li>
-        <li data-target="#demo" data-slide-to="2"></li>
-      </ul>
-      <div class="carousel-inner">
-          <div class="carousel-item active">
-              <img src="/img/스위스.jpg" alt="Switzerland" width="1100" height="500">
-          </div>
-      <div class="carousel-item">
-              <img src="/img/프랑스.jpg" alt="France" width="1100" height="500">
-      </div>
-      <div class="carousel-item">
-              <img src="/img/영국.jpg" alt="UK" width="1100" height="500">
-      </div>   
-      </div>
-    <a class="carousel-control-prev" href="#demo" data-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-    </a>
-    <a class="carousel-control-next" href="#demo" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
-    </a>
-  </div>
+    
     <div class="row no-gutter">
       <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
       <div class="col-md-8 col-lg-6">
@@ -76,6 +54,9 @@
                             <a class="small" href="#">Forgot password?</a></div>
                     </table>
                 </form>
+                <button class="btn btn-success float-right" onclick="location.href='/user/register'">
+                  회원가입
+                </button>
               </div>
             </div>
           </div>

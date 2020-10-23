@@ -16,6 +16,7 @@ module.exports.register = function () {
                 <tr>
                     <td><label for ="uid">사용자 ID &nbsp; <span class="text-danger">*</span></label></td>
                     <td><input type="text" name="uid" id="uid"></td>
+                    
                 </tr>
                 <tr>
                     <td><label for ="pwd">패스워드&nbsp;<span class="text-danger">*</span></label></td>
@@ -36,6 +37,13 @@ module.exports.register = function () {
                 <tr>
                     <td><label for ="email">이메일</label></td>
                     <td><input type="text" name="email" id="email"></td>
+                </tr>
+                <tr>
+                    <td><label for="photo">사진</label></td>
+                        <td colspan="2">
+                            <div class = "custom-file mb-3 border">
+                            <input type='file' class = "custom-file-input" name='photo'/>
+                            <label class="custom-file-label" for="photo">업로드할 사진 파일 선택</label>
                 </tr>
                     <td colspan ="2" style="text-align : center;">
                         <input class="btn btn-primary" type = "submit" value="가입">
